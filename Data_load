@@ -1,0 +1,22 @@
+import pandas as pd
+import numpy as np
+
+import glob
+glob.glob('step_count_data_files/2001 18 Month Data 5.31.2016/2001*.xls')
+
+all_body_data = pd.DataFrame()
+for f in glob.glob('step_count_data_files/2001 18 Month Data 5.31.2016/2001*.xls'):
+    df = pd.ExcelFile(f)
+    all_body_data = all_body_data.append(df.parse('Body',index_col=0))
+
+all_activities_data = pd.DataFrame()
+for f in glob.glob('step_count_data_files/2001 18 Month Data 5.31.2016/2001*.xls'):
+    df = pd.ExcelFile(f)
+    all_activities_data = all_activities_data.append(df.parse('Activities',index_col=0))
+
+p2001=pd.concat([all_body_data,all_activities_data])
+
+p2001['Patient_ID']=2001
+
+p2001
+
